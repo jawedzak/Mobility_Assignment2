@@ -20,7 +20,7 @@
         tools:listitem="@layout/fragment_history_item" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/totalScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

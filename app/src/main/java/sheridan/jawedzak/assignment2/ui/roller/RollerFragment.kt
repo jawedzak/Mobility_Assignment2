@@ -6,6 +6,9 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import sheridan.jawedzak.assignment2.R
+import sheridan.jawedzak.assignment2.database.GameScore
+import sheridan.jawedzak.assignment2.databinding.FragmentRollerBinding
+import kotlin.random.Random
 
 class RollerFragment : Fragment() {
 
@@ -14,13 +17,38 @@ class RollerFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
+    private lateinit var binding: FragmentRollerBinding
     private lateinit var viewModel: RollerViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_roller, container, false)
+        binding = FragmentRollerBinding.inflate(inflater, container, false)
+        //return inflater.inflate(R.layout.fragment_roller, container, false)
+
+    binding.rollButton.setOnClickListener { rollDice()}
+
+        return binding.root
+    }
+
+    private fun rollDice(){
+        //Toast.makeText(this, "", Toast.LENGTH_SHORT).show()
+
+        val randomInt1 = Random.nextInt(6) + 1
+        binding.num1.text = randomInt1.toString()
+
+        val randomInt2 = Random.nextInt(6) + 1
+        binding.num2.text = randomInt2.toString()
+
+        val randomInt3 = Random.nextInt(6) + 1
+        binding.num3.text = randomInt3.toString()
+
+        //get the total
+        val total = randomInt1 + randomInt2 + randomInt3
+        binding.total.text = total.toString()
+
+        viewModel.send(GameScore(0,randomInt1,randomInt2,randomInt3,total))
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
