@@ -16,6 +16,7 @@
         android:layout_weight="1"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+
         app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/fragment_history_item" />
 
@@ -25,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="Total:"
+        android:textColor="#F30808"
         android:textSize="36sp" />
 
 </LinearLayout>

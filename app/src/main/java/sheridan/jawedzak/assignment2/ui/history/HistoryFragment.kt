@@ -36,7 +36,7 @@ class HistoryFragment : Fragment() {
         viewModel.history.observe(viewLifecycleOwner){ adapter.history = it}
 
 //        val idView: TextView = view.findViewById(R.id.totalScore)
-//        idView.text = viewModel.getTotal().toString()
+//        idView.text = ""
 
         return view
     }
