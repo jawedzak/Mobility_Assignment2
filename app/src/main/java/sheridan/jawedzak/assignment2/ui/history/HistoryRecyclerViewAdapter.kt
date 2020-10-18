@@ -32,15 +32,15 @@ class HistoryRecyclerViewAdapter(private val context: Context) : RecyclerView.Ad
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.fragment_history_item, parent, false)
         return ViewHolder(view)
-//
-//        val idView: TextView = view.findViewById(R.id.totalScore)
-//        idView.text = total.toString()
+
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val gameScore = history!![position]
         holder.idView.text = "${position + 1}."
         holder.contentView.text =  "${gameScore.dice1}"  + " + " + "${gameScore.dice2}" + " + " + "${gameScore.dice3}" + " = " + "${gameScore.total}"
+
+
     }
 
     override fun getItemCount(): Int = history?.size ?: 0

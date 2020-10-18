@@ -12,6 +12,11 @@ import kotlin.random.Random
 
 class RollerFragment : Fragment() {
 
+    var randomInt1 = 0
+    var randomInt2 = 0
+    var randomInt3 = 0
+    var total = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -35,17 +40,17 @@ class RollerFragment : Fragment() {
     private fun rollDice(){
         //Toast.makeText(this, "", Toast.LENGTH_SHORT).show()
 
-        val randomInt1 = Random.nextInt(6) + 1
+        randomInt1 = Random.nextInt(6) + 1
         binding.num1.text = randomInt1.toString()
 
-        val randomInt2 = Random.nextInt(6) + 1
+        randomInt2 = Random.nextInt(6) + 1
         binding.num2.text = randomInt2.toString()
 
-        val randomInt3 = Random.nextInt(6) + 1
+        randomInt3 = Random.nextInt(6) + 1
         binding.num3.text = randomInt3.toString()
 
         //get the total
-        val total = randomInt1 + randomInt2 + randomInt3
+        total = randomInt1 + randomInt2 + randomInt3
         binding.total.text = total.toString()
 
         viewModel.send(GameScore(0,randomInt1,randomInt2,randomInt3,total))
@@ -54,6 +59,10 @@ class RollerFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(RollerViewModel::class.java)
+
+        if (savedInstanceState != null){
+            randomInt1 = savedInstanceState.getInt("savedInt1");
+        }
         // TODO: Use the ViewModel
     }
 
@@ -71,4 +80,22 @@ class RollerFragment : Fragment() {
             else -> super.onOptionsItemSelected(item)
     }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putInt("savedInt1", randomInt1)
+        outState.putInt("savedInt2", randomInt2)
+        outState.putInt("savedInt3", randomInt2)
+        outState.putInt("savedInt4", total)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+        if (savedInstanceState != null) {
+            randomInt1 = savedInstanceState.getInt("savedInt1")
+        }
+    }
+
 }
