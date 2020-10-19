@@ -15,7 +15,7 @@ class RollerFragment : Fragment() {
     var randomInt1 = 0
     var randomInt2 = 0
     var randomInt3 = 0
-    var total = 0
+    var sum = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,19 +50,32 @@ class RollerFragment : Fragment() {
         binding.num3.text = randomInt3.toString()
 
         //get the total
-        total = randomInt1 + randomInt2 + randomInt3
-        binding.total.text = total.toString()
+        sum = randomInt1 + randomInt2 + randomInt3
+        binding.total.text = sum.toString()
 
-        viewModel.send(GameScore(0,randomInt1,randomInt2,randomInt3,total))
+        viewModel.send(GameScore(0,randomInt1,randomInt2,randomInt3,sum))
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RollerViewModel::class.java)
 
         if (savedInstanceState != null){
-            randomInt1 = savedInstanceState.getInt("savedInt1");
+            randomInt1 = savedInstanceState.getInt("savedInt1", 0)
+            binding.num1.text = randomInt1.toString()
+
+            randomInt2 = savedInstanceState.getInt("savedInt2", 0)
+            binding.num2.text = randomInt2.toString()
+
+            randomInt3 = savedInstanceState.getInt("savedInt3", 0)
+            binding.num3.text = randomInt3.toString()
+
+            sum = savedInstanceState.getInt("savedInt4", 0)
+            binding.total.text = sum.toString()
+
         }
+
+
+        viewModel = ViewModelProvider(this).get(RollerViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
@@ -86,16 +99,8 @@ class RollerFragment : Fragment() {
 
         outState.putInt("savedInt1", randomInt1)
         outState.putInt("savedInt2", randomInt2)
-        outState.putInt("savedInt3", randomInt2)
-        outState.putInt("savedInt4", total)
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-
-        if (savedInstanceState != null) {
-            randomInt1 = savedInstanceState.getInt("savedInt1")
-        }
+        outState.putInt("savedInt3", randomInt3)
+        outState.putInt("savedInt4", sum)
     }
 
 }
