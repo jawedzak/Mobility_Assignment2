@@ -1,6 +1,8 @@
 package sheridan.jawedzak.assignment2.ui.history
 
 import android.content.Context
+import android.graphics.Color
+import android.util.TypedValue
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +33,10 @@ class HistoryRecyclerViewAdapter(private val context: Context) : RecyclerView.Ad
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val gameScore = history!![position]
         holder.idView.text = "${position + 1}."
+        holder.idView.setTextColor(Color.parseColor("#F30808"));
+        holder.idView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 32F);
+        holder.contentView.setTextColor(Color.parseColor("#F30808"));
+        holder.contentView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 32F);
         holder.contentView.text =  "${gameScore.dice1}"  + " + " + "${gameScore.dice2}" + " + " + "${gameScore.dice3}" + " = " + "${gameScore.total}"
     }
 

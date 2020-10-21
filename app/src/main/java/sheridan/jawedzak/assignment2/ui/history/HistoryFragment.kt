@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import sheridan.jawedzak.assignment2.R
 import androidx.fragment.app.viewModels
+import kotlinx.android.synthetic.main.fragment_roller.*
 
 /**
  * A fragment representing a list of Items.
@@ -33,10 +34,14 @@ class HistoryFragment : Fragment() {
         adapter = HistoryRecyclerViewAdapter(view.context)
         recyclerView.adapter = adapter
 
-        viewModel.history.observe(viewLifecycleOwner){ adapter.history = it}
+        viewModel.history.observe(viewLifecycleOwner){ adapter.history = it
+            var sum = 0
+            for (x in it)
+                sum += x.total
 
-//        val idView: TextView = view.findViewById(R.id.totalScore)
-//        idView.text = ""
+            val idView: TextView = view.findViewById(R.id.totalScore)
+            idView.text = "Total: $sum"
+        }
 
         return view
     }
